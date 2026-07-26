@@ -1,4 +1,4 @@
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx-sS0JDsgC77HpHh03TVxI4QWM1rojg0WpIHpMTXSr9snN_1HW2T4cpN--kC6bUEAO/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxjZPg7r3M9oyG6IlAbbqLS80kzq8MxvuPIj5sBOctbpnkfw3cZp2ZW9cqueF5TckLV/exec';
 const state = {
     selectedMeal: null,
     isSubmitting: false,
