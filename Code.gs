@@ -127,7 +127,7 @@ function formatResponseRow(sheet, rowNumber) {
  */
 function sendEmailNotification(payload) {
     try {
-        const emailSubject = 'New Lunch/Dinner Invitation Response';
+        const emailSubject = '🍽️ New Lunch/Dinner Invitation Response';
         
         const emailBody = createEmailBody(payload);
         
@@ -140,7 +140,7 @@ function sendEmailNotification(payload) {
             }
         );
         
-        console.log('Email sent successfully to ' + RECIPIENT_EMAIL);
+        console.log('✅ Email sent successfully to ' + RECIPIENT_EMAIL);
         
     } catch (error) {
         console.error('Error sending email:', error);
@@ -171,11 +171,12 @@ function createEmailBody(payload) {
 }
 
 /**
- * Create HTML email body
+ * Create HTML email body with beautiful styling
  */
 function createHtmlEmailBody(payload) {
     const responseText = payload.response.toUpperCase() === 'YES' ? '✓ ACCEPTED' : '✗ DECLINED';
     const responseColor = payload.response.toUpperCase() === 'YES' ? '#4CAF50' : '#ff6b6b';
+    const mealEmoji = payload.meal === 'lunch' ? '🍱' : '🍽️';
     const mealText = payload.meal ? payload.meal.charAt(0).toUpperCase() + payload.meal.slice(1) : 'N/A';
     const dateText = formatDate(payload.date);
     const timeText = formatTime(payload.time);
@@ -185,78 +186,94 @@ function createHtmlEmailBody(payload) {
         <html>
         <head>
             <style>
-                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-                .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-                .header { background: linear-gradient(135deg, #ff6b9d, #ffa502); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-                .header h1 { margin: 0; font-size: 24px; }
-                .content { background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #ff6b9d; }
-                .row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
-                .row:last-child { border-bottom: none; }
-                .label { font-weight: bold; color: #666; }
-                .value { color: #333; }
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: #f5f5f5; margin: 0; padding: 0; }
+                .container { max-width: 600px; margin: 20px auto; padding: 0; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+                .header { background: linear-gradient(135deg, #ff6b9d 0%, #ffa502 100%); color: white; padding: 30px 20px; text-align: center; }
+                .header h1 { margin: 0; font-size: 28px; font-weight: 700; }
+                .header p { margin: 8px 0 0 0; font-size: 14px; opacity: 0.9; }
+                .content { padding: 30px 20px; }
+                .response-section { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid ${responseColor}; }
                 .response-badge {
                     display: inline-block;
                     background-color: ${responseColor};
                     color: white;
-                    padding: 8px 16px;
-                    border-radius: 4px;
+                    padding: 10px 20px;
+                    border-radius: 6px;
                     font-weight: bold;
-                    font-size: 16px;
+                    font-size: 18px;
+                    margin-bottom: 15px;
                 }
-                .footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #999; text-align: center; }
+                .details { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+                .detail-item { background: #f0f0f0; padding: 12px; border-radius: 6px; }
+                .detail-label { font-weight: bold; color: #ff6b9d; font-size: 12px; text-transform: uppercase; margin-bottom: 4px; }
+                .detail-value { color: #333; font-size: 16px; }
+                .divider { height: 1px; background: #eee; margin: 20px 0; }
+                .info-box { background: #f9f9f9; padding: 12px; border-radius: 6px; margin-top: 15px; font-size: 13px; color: #666; border-left: 3px solid #ffa502; }
+                .footer { background: #f5f5f5; padding: 15px 20px; text-align: center; border-top: 1px solid #eee; font-size: 12px; color: #999; }
+                .icon { font-size: 14px; margin-right: 6px; }
+                a { color: #ff6b9d; text-decoration: none; }
+                a:hover { text-decoration: underline; }
             </style>
         </head>
         <body>
             <div class="container">
+                <!-- Header -->
                 <div class="header">
-                    <h1>🍽️ Lunch/Dinner Invitation Response</h1>
+                    <h1>🍽️ Lunch/Dinner Invitation</h1>
+                    <p>New Response Received</p>
                 </div>
                 
+                <!-- Content -->
                 <div class="content">
-                    <div class="row">
-                        <span class="label">Response:</span>
-                        <span class="response-badge">${responseText}</span>
+                    <!-- Response Status -->
+                    <div class="response-section">
+                        <div class="response-badge">${responseText}</div>
+                        <p style="margin: 0; color: #666;">New invitation response from your website</p>
                     </div>
                     
-                    <div class="row">
-                        <span class="label">Meal Type:</span>
-                        <span class="value">${mealText}</span>
+                    <!-- Details Grid -->
+                    <div class="details">
+                        <div class="detail-item">
+                            <div class="detail-label"><span class="icon">${mealEmoji}</span>Meal Type</div>
+                            <div class="detail-value">${mealText}</div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-label"><span class="icon">📅</span>Date</div>
+                            <div class="detail-value">${dateText}</div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-label"><span class="icon">⏰</span>Time</div>
+                            <div class="detail-value">${timeText}</div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-label"><span class="icon">💻</span>Device</div>
+                            <div class="detail-value">${payload.device || 'Unknown'}</div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-label"><span class="icon">🌐</span>Browser</div>
+                            <div class="detail-value">${payload.browser || 'Unknown'}</div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-label"><span class="icon">⏱️</span>Submitted</div>
+                            <div class="detail-value">${formatDateTime(payload.submittedOn)}</div>
+                        </div>
                     </div>
                     
-                    <div class="row">
-                        <span class="label">Date:</span>
-                        <span class="value">${dateText}</span>
-                    </div>
-                    
-                    <div class="row">
-                        <span class="label">Time:</span>
-                        <span class="value">${timeText}</span>
-                    </div>
-                    
-                    <div class="row">
-                        <span class="label">Browser:</span>
-                        <span class="value">${payload.browser || 'Unknown'}</span>
-                    </div>
-                    
-                    <div class="row">
-                        <span class="label">Device:</span>
-                        <span class="value">${payload.device || 'Unknown'}</span>
-                    </div>
-                    
-                    <div class="row">
-                        <span class="label">Submitted:</span>
-                        <span class="value">${formatDateTime(payload.submittedOn)}</span>
-                    </div>
-                    
-                    <div class="row">
-                        <span class="label">IP Address:</span>
-                        <span class="value">${getClientIpAddress()}</span>
+                    <!-- Info Box -->
+                    <div class="info-box">
+                        <strong>💡 Tip:</strong> All responses are automatically saved to your Google Sheet. Check there for a complete overview of all responses.
                     </div>
                 </div>
                 
+                <!-- Footer -->
                 <div class="footer">
-                    <p>This email was sent from the Lunch/Dinner Invitation website.</p>
-                    <p>Timestamp: ${new Date().toLocaleString()}</p>
+                    <p style="margin: 0;">This email was automatically generated by your Lunch/Dinner Invitation website.</p>
+                    <p style="margin: 8px 0 0 0;"><a href="https://sheets.google.com">📊 View all responses in Google Sheets</a></p>
                 </div>
             </div>
         </body>
@@ -349,11 +366,19 @@ function testSetup() {
     };
     
     try {
+        Logger.log('🔄 Testing setup...');
         const sheet = getOrCreateSheet();
+        Logger.log('✅ Google Sheet connected');
+        
         addResponseToSheet(sheet, testPayload);
+        Logger.log('✅ Test response added to sheet');
+        
         sendEmailNotification(testPayload);
-        Logger.log('Test completed successfully!');
+        Logger.log('✅ Test email sent');
+        Logger.log('📧 Check your email (karthiknaidu95@gmail.com) for the test message!');
+        Logger.log('📊 Check your Google Sheet for the new row!');
+        
     } catch (error) {
-        Logger.log('Test failed: ' + error);
+        Logger.log('❌ Test failed: ' + error);
     }
 }
