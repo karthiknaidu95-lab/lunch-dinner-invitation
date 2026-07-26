@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Thank you for your response">
+    <meta name="theme-color" content="#ff6b9d">
+    <title>Thank You 🙏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background">
+        <div class="gradient-bg"></div>
+        <div class="particles-container" id="particlesContainer"></div>
+        <div class="floating-hearts" id="floatingHeartsContainer"></div>
+    </div>
+
+    <!-- Thank You Container -->
+    <div class="container">
+        <div class="thank-you-card" id="thankYouCard">
+            <!-- Animated Heart -->
+            <div class="thank-you-heart" id="thankYouHeart">❤️</div>
+
+            <!-- Message -->
+            <h1 class="thank-you-heading">Thank you for your response 😊</h1>
+            <p class="thank-you-subtitle">We'll be in touch with you soon!</p>
+
+            <!-- Close Button -->
+            <button 
+                id="closeBtn" 
+                class="btn btn-close"
+                aria-label="Close thank you page"
+            >
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="animations.js"></script>
+    <script>
+        // Thank You Page Script
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize particles and hearts
+            window.createParticles();
+            window.createFloatingHearts();
+            
+            // Add pulse animation to heart
+            const heart = document.getElementById('thankYouHeart');
+            heart.style.animation = 'pulse 1.5s ease-in-out infinite';
+
+            // Close button functionality
+            document.getElementById('closeBtn').addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+
+            // Keyboard support
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' || e.key === 'Enter') {
+                    window.location.href = 'index.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

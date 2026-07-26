@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A premium invitation to meet for lunch or dinner">
+    <meta name="theme-color" content="#ff6b9d">
+    <title>🍽️ Lunch/Dinner Invitation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background">
+        <div class="gradient-bg"></div>
+        <div class="particles-container" id="particlesContainer"></div>
+        <div class="floating-hearts" id="floatingHeartsContainer"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Invitation Card -->
+        <div class="invitation-card" id="invitationCard">
+            <!-- Header Section -->
+            <div class="card-header">
+                <h1 class="main-heading">🍽️ Shall we meet for lunch or dinner?</h1>
+                <p class="subtitle">Thought it would be nice to meet over a meal and get to know each other better. 😊</p>
+            </div>
+
+            <!-- Form Section -->
+            <div class="card-body">
+                <!-- Date Picker -->
+                <div class="form-group">
+                    <label for="dateInput" class="form-label">📅 Select Date</label>
+                    <input 
+                        type="date" 
+                        id="dateInput" 
+                        class="form-input date-input"
+                        aria-label="Select date for meeting"
+                        required
+                    >
+                    <span class="error-message" id="dateError"></span>
+                </div>
+
+                <!-- Time Picker -->
+                <div class="form-group">
+                    <label for="timeInput" class="form-label">⏰ Select Time</label>
+                    <input 
+                        type="time" 
+                        id="timeInput" 
+                        class="form-input time-input"
+                        aria-label="Select time for meeting"
+                        required
+                    >
+                    <span class="error-message" id="timeError"></span>
+                </div>
+
+                <!-- Meal Selection Cards -->
+                <div class="form-group">
+                    <label class="form-label">🍴 Choose Meal</label>
+                    <div class="meal-selector">
+                        <div 
+                            class="meal-card lunch-card" 
+                            data-meal="lunch"
+                            role="button"
+                            tabindex="0"
+                            aria-label="Select lunch"
+                        >
+                            <span class="meal-emoji">🍱</span>
+                            <span class="meal-text">Lunch</span>
+                        </div>
+                        <div 
+                            class="meal-card dinner-card" 
+                            data-meal="dinner"
+                            role="button"
+                            tabindex="0"
+                            aria-label="Select dinner"
+                        >
+                            <span class="meal-emoji">🍽️</span>
+                            <span class="meal-text">Dinner</span>
+                        </div>
+                    </div>
+                    <span class="error-message" id="mealError"></span>
+                </div>
+
+                <!-- Hidden input to store meal selection -->
+                <input type="hidden" id="mealInput" value="">
+            </div>
+
+            <!-- Button Section -->
+            <div class="card-footer">
+                <button 
+                    id="yesBtn" 
+                    class="btn btn-yes"
+                    aria-label="Accept invitation"
+                >
+                    <span class="btn-text">Yes, Let's Meet! 🎉</span>
+                    <span class="btn-loader" id="yesBtnLoader"></span>
+                </button>
+                <button 
+                    id="noBtn" 
+                    class="btn btn-no"
+                    aria-label="Decline invitation"
+                >
+                    <span class="btn-text">Thanks, Maybe Later 😊</span>
+                    <span class="btn-loader" id="noBtnLoader"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Calendar & Maps Section -->
+        <div class="extra-actions" id="extraActions" style="display: none;">
+            <button 
+                id="calendarBtn" 
+                class="extra-btn calendar-btn"
+                aria-label="Add to Google Calendar"
+                title="Add event to Google Calendar"
+            >
+                📅 Add to Calendar
+            </button>
+            <button 
+                id="mapsBtn" 
+                class="extra-btn maps-btn"
+                aria-label="View location on Google Maps"
+                title="View restaurant location"
+            >
+                📍 View Location
+            </button>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div class="popup" id="successPopup">
+        <div class="popup-content">
+            <div class="popup-icon" id="popupIcon">✓</div>
+            <p class="popup-message" id="popupMessage">Awesome! Looking forward to meeting you 😊</p>
+            <button class="popup-btn" id="popupBtn">Continue</button>
+        </div>
+    </div>
+
+    <!-- Error Popup -->
+    <div class="popup" id="errorPopup">
+        <div class="popup-content error">
+            <div class="popup-icon error-icon">⚠️</div>
+            <p class="popup-message" id="errorMessage">Something went wrong. Please try again.</p>
+            <button class="popup-btn" id="errorBtn">OK</button>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+        <div class="spinner"></div>
+        <p>Sending your response...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="animations.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
